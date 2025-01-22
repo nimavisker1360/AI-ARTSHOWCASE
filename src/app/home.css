@@ -93,4 +93,8 @@
     align-items: flex-start;
     gap: 2em;
   }
+
+  .hero-icon {
+    width: 75px;
+  }
 }
