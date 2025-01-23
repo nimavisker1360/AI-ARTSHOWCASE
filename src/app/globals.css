@@ -145,11 +145,30 @@ h3 {
   line-height: 100%;
 }
 
+h4 {
+  text-transform: uppercase;
+  font-family: "NeueBit";
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 100%;
+}
+
 p {
   font-family: "Suisse Intl";
   font-weight: 400;
   font-size: 1.2rem;
   line-height: 135%;
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p.primary {
+  text-transform: uppercase;
+  font-family: "NeueBit";
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 100%;
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
