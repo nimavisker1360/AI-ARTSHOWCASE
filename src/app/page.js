@@ -63,6 +63,8 @@ export default function Home() {
                     <div className="prompt-example-result-item">
                       <div className="prompt-example-result-item-img">
                         <img src="/images/home/prompt-eg-1.jpeg" alt="" />
+                        <div className="hero-img-overlay"></div>
+                        <div className="hero-img-gradient"></div>
                       </div>
                       <div className="prompt-example-result-item-title">
                         <h4>2016 — Generated using Aligndraw</h4>
@@ -71,12 +73,42 @@ export default function Home() {
                     <div className="prompt-example-result-item">
                       <div className="prompt-example-result-item-img">
                         <img src="/images/home/prompt-eg-2.jpeg" alt="" />
+                        <div className="hero-img-overlay"></div>
+                        <div className="hero-img-gradient"></div>
                       </div>
                       <div className="prompt-example-result-item-title">
                         <h4>2024 — generated using DALL-E 3</h4>
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="case-studies">
+          <div className="case-studies-header">
+            <div className="container">
+              <h2>Explore Past Case Studies</h2>
+            </div>
+          </div>
+
+          <div className="case-studies-content">
+            <div className="container">
+              <div className="col">
+                <p className="primary">[ Case Studies ]</p>
+              </div>
+              <div className="col">
+                <div className="case-studies-copy">
+                  <h2>Is generative AI friend or foe for artists?</h2>
+
+                  <p>
+                    Generative AI has undergone substantial evolution over the
+                    years, transitioning from its initial capability to generate
+                    images of merely 32x32 pixels to producing high-resolution
+                    images that are often indistinguishable from reality.
+                  </p>
                 </div>
               </div>
             </div>
