@@ -1,9 +1,53 @@
 "use client";
+import { useEffect } from "react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 import "./home.css";
 import { ReactLenis } from "@studio-freight/react-lenis";
+gsap.registerPlugin(ScrollTrigger);
+
+import { CgArrowLongRight } from "react-icons/cg";
 
 export default function Home() {
+  useEffect(() => {
+    const images = gsap.utils.toArray(".case-studies-img");
+
+    images.forEach((img, i) => {
+      const imgElement = img.querySelector("img");
+
+      ScrollTrigger.create({
+        trigger: img,
+        start: "top bottom",
+        end: "top top",
+        onUpdate: (self) => {
+          gsap.to(imgElement, {
+            scale: 2 - self.progress,
+            duration: 0.1,
+            ease: "none",
+          });
+        },
+      });
+
+      ScrollTrigger.create({
+        trigger: img,
+        start: "top top",
+        end: () =>
+          `+=${
+            document.querySelector(".case-studies-item").offsetHeight *
+            (images.length - i - 1)
+          }`,
+        pin: true,
+        pinSpacing: false,
+        invalidateOnRefresh: true,
+      });
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   return (
     <ReactLenis root>
       <div className="app">
@@ -112,6 +156,115 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="case-studies-items">
+          <div className="case-studies-items-content col">
+            <div className="case-studies-item case-studies-item-1">
+              <div className="container">
+                <h3>“I won, and I didn’t break any rules”</h3>
+                <p className="primary">
+                  [ Théâtre D’opéra Spatial — Jason Allen ]
+                </p>
+                <div className="case-studies-item-inner-img">
+                  <img src="/images/home/case-study-1.jpeg" alt="" />
+                </div>
+                <p>
+                  Annika wins first prize at the world's first AI photography
+                  festival, sparking debates about the authenticity and ethics
+                  of AI-generated images — especially within photography.
+                </p>
+                <div className="case-studies-item-inner-link">
+                  <a href="#">View Article</a>{" "}
+                  <div className="link-icon">
+                    <CgArrowLongRight size={24} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="case-studies-item case-studies-item-2">
+              <div className="container">
+                <h3>The First A.I. Fashion Magazine ”</h3>
+                <p className="primary">
+                  [ Copy magazine — Carl-Axel Wahlstrom ]
+                </p>
+                <div className="case-studies-item-inner-img">
+                  <img src="/images/home/case-study-2.jpeg" alt="" />
+                </div>
+                <p>
+                  Jason Allen won first prize in the Colorado State Fair’s
+                  annual art competition with an AI generated artwork. The work
+                  has sparked controversy across the internet — leaving people
+                  argue on the topic of authenticity, and plagarism.
+                </p>
+                <div className="case-studies-item-inner-link">
+                  <a href="#">View Article</a>
+                  <div className="link-icon">
+                    <CgArrowLongRight size={24} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="case-studies-item case-studies-item-3">
+              <div className="container">
+                <h3>World’s First A.I. Art Award</h3>
+                <p className="primary">
+                  [ Twin Sisters in Love — Annika Nordenskiöld ]
+                </p>
+                <div className="case-studies-item-inner-img">
+                  <img src="/images/home/case-study-3.jpeg" alt="" />
+                </div>
+                <p>
+                  The Copy Magazine features solely A.I. generated
+                  photorealistic images with fictional figures that have real
+                  names. The magazine explores the implications and biases of
+                  generative AI in the high-end fashion industry.
+                </p>
+                <div className="case-studies-item-inner-link">
+                  <a href="#">View Article</a>
+                  <div className="link-icon">
+                    <CgArrowLongRight size={24} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="case-studies-items-images col">
+            <div className="case-studies-img case-studies-img-1">
+              <img src="/images/home/case-study-1.jpeg" alt="" />
+              <div className="hero-img-overlay"></div>
+              <div className="case-studies-img-link">
+                <a href="#">
+                  <span>( View Article )</span>
+                </a>
+              </div>
+            </div>
+            <div className="case-studies-img case-studies-img-2">
+              <img src="/images/home/case-study-2.jpeg" alt="" />
+              <div className="hero-img-overlay"></div>
+              <div className="case-studies-img-link">
+                <a href="#">
+                  <span>( View Article )</span>
+                </a>
+              </div>
+            </div>
+            <div className="case-studies-img case-studies-img-3">
+              <img src="/images/home/case-study-3.jpeg" alt="" />
+              <div className="hero-img-overlay"></div>
+              <div className="case-studies-img-link">
+                <a href="#">
+                  <span>( View Article )</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="works-header">
+          <div className="container">
+            {" "}
+            <h1>Reimagination of Iconic Works</h1>
           </div>
         </section>
       </div>
