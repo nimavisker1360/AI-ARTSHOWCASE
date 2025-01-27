@@ -2,7 +2,6 @@
 .hero {
   width: 100vw;
   height: 100vh;
-  background-color: var(--background);
   overflow: hidden;
 }
 
@@ -276,11 +275,6 @@
 }
 
 /* works-header */
-.works-header {
-  height: 100vh;
-  padding: 4em 0;
-  background-color: var(--background);
-}
 
 @media (max-width: 900px) {
   .hero .container {

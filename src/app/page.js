@@ -48,6 +48,10 @@ export default function Home() {
     };
   }, []);
 
+  const helloWorld = () => {
+    console.log("Hello World");
+  };
+
   return (
     <ReactLenis root>
       <div className="app">
@@ -258,13 +262,6 @@ export default function Home() {
                 </a>
               </div>
             </div>
-          </div>
-        </section>
-
-        <section className="works-header">
-          <div className="container">
-            {" "}
-            <h1>Reimagination of Iconic Works</h1>
           </div>
         </section>
       </div>
