@@ -264,6 +264,35 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <section className="works">
+          <div className="works-header">
+            <div className="container">
+              <h2>Reimagination of Iconic Works</h2>
+            </div>
+          </div>
+
+          <div className="works-content">
+            <div className="container">
+              <div className="col">
+                <p className="primary">[ Experiments ]</p>
+              </div>
+              <div className="col">
+                <div className="works-copy">
+                  <h2>
+                    How does A.I. compare with authentic human creativity?
+                  </h2>
+
+                  <p>
+                    In the following experiments, we will use cutting edge
+                    visual AI tools (Midjourney & DALL-E 3) to generatively
+                    reinterpret iconic artworks via a set of creative prompts.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </ReactLenis>
   );
