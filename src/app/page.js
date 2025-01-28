@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -10,6 +11,95 @@ gsap.registerPlugin(ScrollTrigger);
 import { CgArrowLongRight } from "react-icons/cg";
 
 export default function Home() {
+  const carouselItems = [
+    {
+      id: "001",
+      title: "A Girl with Pearl Earring",
+      bg: "/images/carousel/bg-1.jpg",
+      main: "/images/carousel/main-1.jpg",
+      url: "/project",
+    },
+    {
+      id: "002",
+      title: "The Great Kanagawa",
+      bg: "/images/carousel/bg-2.jpg",
+      main: "/images/carousel/main-2.jpg",
+      url: "/project",
+    },
+    {
+      id: "003",
+      title: "Impression, Sunrise, Hour",
+      bg: "/images/carousel/bg-3.jpg",
+      main: "/images/carousel/main-3.jpg",
+      url: "/project",
+    },
+  ];
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Get all project elements
+    const projects = gsap.utils.toArray(".project");
+
+    // Setup the main pin and timeline
+    ScrollTrigger.create({
+      trigger: ".carousel",
+      start: "top top",
+      end: `+=${window.innerHeight * (projects.length - 1)}`,
+      pin: true,
+      pinSpacing: true,
+      scrub: 1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        // Calculate which slide we're on
+        const progress = self.progress * (projects.length - 1);
+        const currentSlide = Math.floor(progress);
+        const slideProgress = progress - currentSlide;
+
+        // Animate current and next slide if it exists
+        if (currentSlide < projects.length - 1) {
+          // Current slide is already visible
+          gsap.set(projects[currentSlide], {
+            clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+          });
+
+          // Animate next slide
+          const nextSlideProgress = gsap.utils.interpolate(
+            "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+            "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+            slideProgress
+          );
+
+          gsap.set(projects[currentSlide + 1], {
+            clipPath: nextSlideProgress,
+          });
+        }
+
+        // Reset all other slides
+        projects.forEach((project, index) => {
+          if (index < currentSlide) {
+            gsap.set(project, {
+              clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+            });
+          } else if (index > currentSlide + 1) {
+            gsap.set(project, {
+              clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+            });
+          }
+        });
+      },
+    });
+
+    // Initial state - show first slide
+    gsap.set(projects[0], {
+      clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   useEffect(() => {
     const images = gsap.utils.toArray(".case-studies-img");
 
@@ -288,6 +378,70 @@ export default function Home() {
                     visual AI tools (Midjourney & DALL-E 3) to generatively
                     reinterpret iconic artworks via a set of creative prompts.
                   </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="carousel">
+          {carouselItems.map((item) => (
+            <div
+              key={item.id}
+              id={`project-${item.id}`}
+              className="project"
+              style={{
+                clipPath:
+                  item.id === "01"
+                    ? "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)"
+                    : "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+              }}
+            >
+              <div className="project-bg">
+                <img src={item.bg} alt="" />
+              </div>
+              <div className="project-main">
+                <img src={item.main} alt="" />
+              </div>
+              <div className="project-header">
+                <div className="project-id">
+                  <h2>Exhibit {item.id}</h2>
+                </div>
+                <div className="project-whitespace"></div>
+                <div className="project-title">
+                  <h2>{item.title}</h2>
+                </div>
+              </div>
+              <div className="project-info">
+                <div className="project-url">
+                  <Link href={item.url}>( View Project )</Link>
+                </div>
+              </div>
+              <Link
+                href={item.url}
+                className="project-overlay-link"
+                aria-label={`View ${item.title} project`}
+              />
+            </div>
+          ))}
+        </section>
+
+        <section className="hero">
+          <div className="hero-img">
+            <img src="/images/home/hero.jpeg" alt="" />
+          </div>
+          <div className="hero-img-overlay"></div>
+          <div className="hero-img-gradient"></div>
+
+          <div className="container">
+            <div className="hero-copy">
+              <div className="hero-copy-col">
+                <h3>A short exploration on</h3>
+                <h1>Generative AI in the Fine Arts</h1>
+              </div>
+              <div className="hero-copy-col">
+                <div className="hero-icon">
+                  <img src="/images/home/hero-abstract-icon.png" alt="" />
                 </div>
               </div>
             </div>
