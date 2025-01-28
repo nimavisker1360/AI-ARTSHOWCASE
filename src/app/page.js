@@ -36,12 +36,32 @@ export default function Home() {
   ];
 
   useEffect(() => {
+    gsap.set("footer", { opacity: 0 });
+
+    const footerTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".carousel",
+        start: "top center",
+        end: "bottom center",
+        scrub: true,
+        toggleActions: "play none none reverse",
+        invalidateOnRefresh: true,
+      },
+    });
+
+    footerTl.fromTo("footer", { opacity: 0 }, { opacity: 1, duration: 1 });
+
+    return () => {
+      const triggers = ScrollTrigger.getAll();
+      triggers.forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
+  useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Get all project elements
     const projects = gsap.utils.toArray(".project");
 
-    // Setup the main pin and timeline
     ScrollTrigger.create({
       trigger: ".carousel",
       start: "top top",
@@ -51,19 +71,15 @@ export default function Home() {
       scrub: 1,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
-        // Calculate which slide we're on
         const progress = self.progress * (projects.length - 1);
         const currentSlide = Math.floor(progress);
         const slideProgress = progress - currentSlide;
 
-        // Animate current and next slide if it exists
         if (currentSlide < projects.length - 1) {
-          // Current slide is already visible
           gsap.set(projects[currentSlide], {
             clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
           });
 
-          // Animate next slide
           const nextSlideProgress = gsap.utils.interpolate(
             "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
             "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
@@ -75,7 +91,6 @@ export default function Home() {
           });
         }
 
-        // Reset all other slides
         projects.forEach((project, index) => {
           if (index < currentSlide) {
             gsap.set(project, {
@@ -90,7 +105,6 @@ export default function Home() {
       },
     });
 
-    // Initial state - show first slide
     gsap.set(projects[0], {
       clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
     });
@@ -137,10 +151,6 @@ export default function Home() {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
-
-  const helloWorld = () => {
-    console.log("Hello World");
-  };
 
   return (
     <ReactLenis root>
@@ -426,27 +436,47 @@ export default function Home() {
           ))}
         </section>
 
-        <section className="hero">
-          <div className="hero-img">
-            <img src="/images/home/hero.jpeg" alt="" />
-          </div>
-          <div className="hero-img-overlay"></div>
-          <div className="hero-img-gradient"></div>
+        <section className="footer-area"></section>
 
+        <footer>
           <div className="container">
-            <div className="hero-copy">
-              <div className="hero-copy-col">
-                <h3>A short exploration on</h3>
-                <h1>Generative AI in the Fine Arts</h1>
+            <div className="footer-row footer-content">
+              <div className="footer-col">
+                <h3>
+                  A short exploration on generative AI Art by Codegrid © 2025 —
+                  All rights reserved.
+                </h3>
               </div>
-              <div className="hero-copy-col">
-                <div className="hero-icon">
-                  <img src="/images/home/hero-abstract-icon.png" alt="" />
+              <div className="footer-col">
+                <div className="footer-sub-col">
+                  <p className="footer-col-header">[ * Navigation ]</p>
+                  <p>Introduction</p>
+                  <p>Case Studies</p>
+                  <p>Experiments</p>
+                </div>
+                <div className="footer-sub-col">
+                  <p className="footer-col-header">[ * Exhibit ]</p>
+                  <p>Exhibit 001</p>
+                  <p>Exhibit 002</p>
+                  <p>Exhibit 003</p>
                 </div>
               </div>
             </div>
+            <div className="footer-row footer-pattern">
+              <p>+</p>
+              <p>+</p>
+              <p>+</p>
+            </div>
+            <div className="footer-row">
+              <h1>Algora</h1>
+            </div>
+            <div className="footer-row footer-pattern">
+              <p>+</p>
+              <p>+</p>
+              <p>+</p>
+            </div>
           </div>
-        </section>
+        </footer>
       </div>
     </ReactLenis>
   );

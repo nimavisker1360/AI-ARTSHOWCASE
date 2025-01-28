@@ -1,6 +1,7 @@
 :root {
   --background: #182a2a;
   --foreground: #fbf6c1;
+  --foreground-secondary: #30726e;
 }
 
 @font-face {
