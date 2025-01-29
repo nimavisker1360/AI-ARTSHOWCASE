@@ -133,7 +133,7 @@ const ArchivePage = () => {
             <Marquee />
           </div>
           <div className="container">
-            <p className="primary">[ Archive 002 ]</p>
+            <p className="primary">[ Archive 102 ]</p>
             <div className="next-archive-img">
               <img src="/images/carousel/carousel2.jpeg" alt="" />
             </div>
