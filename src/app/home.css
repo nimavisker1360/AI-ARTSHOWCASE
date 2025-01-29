@@ -317,6 +317,7 @@
 
 .strip:nth-child(1) {
   margin-bottom: 5px;
+  height: 200px;
 }
 
 .strip:nth-child(2) {

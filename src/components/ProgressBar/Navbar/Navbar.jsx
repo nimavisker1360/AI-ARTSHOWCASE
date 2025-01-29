@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import "./Navbar.css";
-import Link from "next/link";
 
 const Navbar = () => {
   const [time, setTime] = useState("");
@@ -19,19 +18,34 @@ const Navbar = () => {
     };
 
     updateTime();
-
     const interval = setInterval(updateTime, 1000);
-
     return () => clearInterval(interval);
   }, []);
+
+  const scrollToSection = (event, sectionId) => {
+    event.preventDefault();
+
+    const lenis = window.lenis;
+
+    if (lenis) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        lenis.scrollTo(element, {
+          offset: 0,
+          immediate: false,
+          duration: 1.5,
+        });
+      }
+    }
+  };
 
   return (
     <div className="navbar">
       <div className="navbar-col">
         <div className="navbar-sub-col logo">
-          <Link href="/">
+          <a href="#hero" onClick={(e) => scrollToSection(e, "hero")}>
             <h3>Algora</h3>
-          </Link>
+          </a>
         </div>
         <div className="navbar-sub-col time">
           <p>{time}</p>
@@ -39,15 +53,18 @@ const Navbar = () => {
       </div>
       <div className="navbar-col">
         <div className="navbar-sub-col nav-items">
-          <Link href="/">
+          <a href="#intro" onClick={(e) => scrollToSection(e, "intro")}>
             <p>The Origins</p>
-          </Link>
-          <Link href="/">
+          </a>
+          <a
+            href="#case-studies"
+            onClick={(e) => scrollToSection(e, "case-studies")}
+          >
             <p>Highlights</p>
-          </Link>
-          <Link href="/">
+          </a>
+          <a href="#works" onClick={(e) => scrollToSection(e, "works")}>
             <p>Innovations</p>
-          </Link>
+          </a>
         </div>
         <div className="navbar-sub-col music-toggle">
           <div className="music-toggle-btn">

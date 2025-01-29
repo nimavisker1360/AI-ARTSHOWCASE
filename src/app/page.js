@@ -6,7 +6,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import ProgressBar from "@/components/ProgressBar/ProgressBar";
 
 import "./home.css";
-import { ReactLenis } from "@studio-freight/react-lenis";
+import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 gsap.registerPlugin(ScrollTrigger);
 
 import { CgArrowLongRight } from "react-icons/cg";
@@ -35,6 +35,17 @@ export default function Home() {
       url: "/project",
     },
   ];
+
+  const lenis = useLenis();
+  useEffect(() => {
+    if (lenis) {
+      window.lenis = lenis;
+    }
+
+    return () => {
+      window.lenis = null;
+    };
+  }, [lenis]);
 
   useEffect(() => {
     gsap.set("footer", { opacity: 0 });
@@ -116,23 +127,16 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    // Create ScrollTrigger for geometric background animation
     ScrollTrigger.create({
       trigger: ".intro",
-      start: "top bottom", // start when the top of intro enters bottom of viewport
-      end: "bottom top", // end when bottom of intro leaves top of viewport
-      scrub: 1, // smooth scrubbing, takes 1 second to catch up
+      start: "top bottom",
+      end: "bottom top",
+      scrub: 1,
       onUpdate: (self) => {
         const progress = self.progress;
-
-        // Calculate translateY value (moving upward as we scroll)
-        // Start at 0 and move up to -100px based on scroll progress
         const yMove = -750 * progress;
-
-        // Calculate rotation (0 to 360 degrees)
         const rotation = 360 * progress;
 
-        // Apply transforms
         gsap.to(".geo-bg", {
           y: yMove,
           rotation: rotation,
@@ -143,7 +147,6 @@ export default function Home() {
       },
     });
 
-    // Cleanup
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
@@ -188,7 +191,18 @@ export default function Home() {
   }, []);
 
   return (
-    <ReactLenis root>
+    <ReactLenis
+      root
+      options={{
+        duration: 1.5,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: "vertical",
+        gestureDirection: "vertical",
+        smooth: true,
+        smoothTouch: false,
+        touchMultiplier: 2,
+      }}
+    >
       <div className="app">
         <ProgressBar />
         <section className="hero">
@@ -213,7 +227,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="intro">
+        <section className="intro" id="intro">
           <div className="geo-bg">
             <svg
               width="201"
@@ -313,7 +327,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="case-studies">
+        <section className="case-studies" id="case-studies">
           <div className="case-studies-header">
             <div className="container">
               <h2>Dive Into New Success Stories</h2>
@@ -464,7 +478,7 @@ export default function Home() {
           <div className="strip"></div>
         </section>
 
-        <section className="works">
+        <section className="works" id="works">
           <div className="works-header">
             <div className="container">
               <h2>Timeless Art Through a New Lens</h2>
