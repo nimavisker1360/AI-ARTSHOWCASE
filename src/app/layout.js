@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Algora",
+  title: "ALGORA — Your AI art portal",
   description: "Your AI art portal",
 };
 

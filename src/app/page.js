@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import ProgressBar from "@/components/ProgressBar/ProgressBar";
 
 import "./home.css";
 import { ReactLenis } from "@studio-freight/react-lenis";
@@ -13,24 +14,24 @@ import { CgArrowLongRight } from "react-icons/cg";
 export default function Home() {
   const carouselItems = [
     {
-      id: "001",
-      title: "A Girl with Pearl Earring",
-      bg: "/images/carousel/bg-1.jpg",
-      main: "/images/carousel/main-1.jpg",
+      id: "101",
+      title: "Starlight Reverie Celestial",
+      bg: "/images/carousel/carousel1.jpeg",
+      main: "/images/carousel/carousel1.jpeg",
       url: "/project",
     },
     {
-      id: "002",
-      title: "The Great Kanagawa",
-      bg: "/images/carousel/bg-2.jpg",
-      main: "/images/carousel/main-2.jpg",
+      id: "102",
+      title: "The Infinite Eternity Flow",
+      bg: "/images/carousel/carousel2.jpeg",
+      main: "/images/carousel/carousel2.jpeg",
       url: "/project",
     },
     {
-      id: "003",
-      title: "Impression, Sunrise, Hour",
-      bg: "/images/carousel/bg-3.jpg",
-      main: "/images/carousel/main-3.jpg",
+      id: "103",
+      title: "Aurora's Horizon Colors",
+      bg: "/images/carousel/carousel3.jpeg",
+      main: "/images/carousel/carousel3.jpeg",
       url: "/project",
     },
   ];
@@ -155,6 +156,7 @@ export default function Home() {
   return (
     <ReactLenis root>
       <div className="app">
+        <ProgressBar />
         <section className="hero">
           <div className="hero-img">
             <img src="/images/home/hero.jpeg" alt="" />
@@ -165,8 +167,8 @@ export default function Home() {
           <div className="container">
             <div className="hero-copy">
               <div className="hero-copy-col">
-                <h3>A short exploration on</h3>
-                <h1>Generative AI in the Fine Arts</h1>
+                <h3>A brief journey into</h3>
+                <h1>The Fusion of Art and Algorithms</h1>
               </div>
               <div className="hero-copy-col">
                 <div className="hero-icon">
@@ -181,51 +183,53 @@ export default function Home() {
           <div className="intro-container">
             <div className="container">
               <div className="col">
-                <p className="primary">[ A short introduction ]</p>
+                <p className="primary">[ Setting the Scene ]</p>
               </div>
               <div className="col">
                 <div className="intro-copy">
                   <p>
-                    Generative AI has undergone substantial evolution over the
-                    years, transitioning from its initial capability to generate
-                    images of merely 32x32 pixels to producing high-resolution
-                    images that are often indistinguishable from reality.
+                    Algora has revolutionized the creative potential of AI,
+                    advancing from basic, low-resolution outputs to producing
+                    hyper-realistic, high-definition visuals that push the
+                    boundaries of imagination and innovation.
                   </p>
 
                   <p>
-                    This advancement has democratized access to powerful visual
-                    creation tools for everyone from professional designers to
-                    hobbyists. However, this accessibility has also sparked
-                    controversies around the ethical implications of
-                    AI-generated content, including copyright infringement,
-                    misinformation, and concerns over artistic authenticity.
+                    This progress has opened the doors to powerful visual
+                    creation tools for users of all skill levels, from seasoned
+                    professionals to casual creators. Yet, it has also raised
+                    critical debates around the ethical challenges of
+                    AI-generated content, such as intellectual property
+                    disputes, the spread of false information, and questions
+                    surrounding the essence of true artistic expression.
                   </p>
                 </div>
 
                 <div className="prompt-example">
                   <div className="prompt-example-header">
-                    <h4>// PROMPT: A bowl of bananas centered on a table</h4>
+                    <h4>
+                      // PROMPT: A sci-fi fashion portrait of a person in
+                      futuristic attire
+                    </h4>
                   </div>
 
                   <div className="prompt-example-results">
                     <div className="prompt-example-result-item">
                       <div className="prompt-example-result-item-img">
-                        <img src="/images/home/prompt-eg-1.jpeg" alt="" />
+                        <img src="/images/home/prompt-1.jpeg" alt="" />
                         <div className="hero-img-overlay"></div>
-                        <div className="hero-img-gradient"></div>
                       </div>
                       <div className="prompt-example-result-item-title">
-                        <h4>2016 — Generated using Aligndraw</h4>
+                        <h4>2016 — Built with pioneering generative tools</h4>
                       </div>
                     </div>
                     <div className="prompt-example-result-item">
                       <div className="prompt-example-result-item-img">
-                        <img src="/images/home/prompt-eg-2.jpeg" alt="" />
+                        <img src="/images/home/prompt-2.jpeg" alt="" />
                         <div className="hero-img-overlay"></div>
-                        <div className="hero-img-gradient"></div>
                       </div>
                       <div className="prompt-example-result-item-title">
-                        <h4>2024 — generated using DALL-E 3</h4>
+                        <h4>2024 — Created with Algora V2</h4>
                       </div>
                     </div>
                   </div>
@@ -238,7 +242,7 @@ export default function Home() {
         <section className="case-studies">
           <div className="case-studies-header">
             <div className="container">
-              <h2>Explore Past Case Studies</h2>
+              <h2>Dive Into New Success Stories</h2>
             </div>
           </div>
 
@@ -249,13 +253,13 @@ export default function Home() {
               </div>
               <div className="col">
                 <div className="case-studies-copy">
-                  <h2>Is generative AI friend or foe for artists?</h2>
+                  <h2>How is AI Reshaping Artistic Boundaries?</h2>
 
                   <p>
-                    Generative AI has undergone substantial evolution over the
-                    years, transitioning from its initial capability to generate
-                    images of merely 32x32 pixels to producing high-resolution
-                    images that are often indistinguishable from reality.
+                    Generative AI has rapidly advanced, moving beyond its humble
+                    beginnings of basic visual outputs to now creating stunning,
+                    lifelike artworks that challenge our perceptions of
+                    creativity and technology.
                   </p>
                 </div>
               </div>
@@ -267,43 +271,49 @@ export default function Home() {
           <div className="case-studies-items-content col">
             <div className="case-studies-item case-studies-item-1">
               <div className="container">
-                <h3>“I won, and I didn’t break any rules”</h3>
-                <p className="primary">
-                  [ Théâtre D’opéra Spatial — Jason Allen ]
-                </p>
+                <h3>Art in the Age of Algorithms</h3>
+                <p className="primary">[ Lumina Horizon — Zara Lee ]</p>
                 <div className="case-studies-item-inner-img">
-                  <img src="/images/home/case-study-1.jpeg" alt="" />
+                  <img
+                    src="/images/home/case-study-1.jpeg"
+                    alt="Futuristic AI-generated art"
+                  />
                 </div>
                 <p>
-                  Annika wins first prize at the world's first AI photography
-                  festival, sparking debates about the authenticity and ethics
-                  of AI-generated images — especially within photography.
+                  Zara Lee’s AI-powered installation captivates audiences at the
+                  Global Digital Arts Forum, raising questions about the fusion
+                  of human intent and machine precision. The work highlights the
+                  limitless potential of AI as a creative partner in the world
+                  of modern art.
                 </p>
                 <div className="case-studies-item-inner-link">
-                  <a href="#">View Article</a>{" "}
+                  <a href="#">Discover the Journey</a>
                   <div className="link-icon">
                     <CgArrowLongRight size={24} />
                   </div>
                 </div>
               </div>
             </div>
+
             <div className="case-studies-item case-studies-item-2">
               <div className="container">
-                <h3>The First A.I. Fashion Magazine ”</h3>
-                <p className="primary">
-                  [ Copy magazine — Carl-Axel Wahlstrom ]
-                </p>
+                <h3>The Dawn of AI-Driven Fashion</h3>
+                <p className="primary">[ Visionary Threads — Elena Marquez ]</p>
                 <div className="case-studies-item-inner-img">
-                  <img src="/images/home/case-study-2.jpeg" alt="" />
+                  <img
+                    src="/images/home/case-study-2.jpeg"
+                    alt="AI-driven fashion design showcase"
+                  />
                 </div>
                 <p>
-                  Jason Allen won first prize in the Colorado State Fair’s
-                  annual art competition with an AI generated artwork. The work
-                  has sparked controversy across the internet — leaving people
-                  argue on the topic of authenticity, and plagarism.
+                  Elena Marquez launches the first fashion magazine curated
+                  entirely by AI, featuring futuristic designs and concepts that
+                  redefine the boundaries of creativity. While widely praised
+                  for its innovation, the magazine ignites debates over the role
+                  of human designers in a machine-led creative process.
                 </p>
                 <div className="case-studies-item-inner-link">
-                  <a href="#">View Article</a>
+                  <a href="#">Read Full Story</a>
                   <div className="link-icon">
                     <CgArrowLongRight size={24} />
                   </div>
@@ -312,21 +322,25 @@ export default function Home() {
             </div>
             <div className="case-studies-item case-studies-item-3">
               <div className="container">
-                <h3>World’s First A.I. Art Award</h3>
+                <h3>The Rise of AI-Curated Art Awards</h3>
                 <p className="primary">
-                  [ Twin Sisters in Love — Annika Nordenskiöld ]
+                  [ Synthetic Realities — Sophia Armitage ]
                 </p>
                 <div className="case-studies-item-inner-img">
-                  <img src="/images/home/case-study-3.jpeg" alt="" />
+                  <img
+                    src="/images/home/case-study-3.jpeg"
+                    alt="AI-curated artwork showcase"
+                  />
                 </div>
                 <p>
-                  The Copy Magazine features solely A.I. generated
-                  photorealistic images with fictional figures that have real
-                  names. The magazine explores the implications and biases of
-                  generative AI in the high-end fashion industry.
+                  Sophia Armitage’s groundbreaking AI-curated exhibition
+                  highlights the creative potential of machine-generated art.
+                  The event features photorealistic works of entirely fictional
+                  subjects, sparking a discussion about bias, authenticity, and
+                  AI’s role in shaping the future of artistic recognition.
                 </p>
                 <div className="case-studies-item-inner-link">
-                  <a href="#">View Article</a>
+                  <a href="#">Explore the Exhibit</a>
                   <div className="link-icon">
                     <CgArrowLongRight size={24} />
                   </div>
@@ -368,25 +382,23 @@ export default function Home() {
         <section className="works">
           <div className="works-header">
             <div className="container">
-              <h2>Reimagination of Iconic Works</h2>
+              <h2>Timeless Art Through a New Lens</h2>
             </div>
           </div>
 
           <div className="works-content">
             <div className="container">
               <div className="col">
-                <p className="primary">[ Experiments ]</p>
+                <p className="primary">[ Creative Explorations ]</p>
               </div>
               <div className="col">
                 <div className="works-copy">
-                  <h2>
-                    How does A.I. compare with authentic human creativity?
-                  </h2>
+                  <h2>Can machines innovate Like Human Artists?</h2>
 
                   <p>
-                    In the following experiments, we will use cutting edge
-                    visual AI tools (Midjourney & DALL-E 3) to generatively
-                    reinterpret iconic artworks via a set of creative prompts.
+                    These experiments explore the potential of advanced AI
+                    tools, such as Midjourney and DALL-E 3, to reimagine classic
+                    masterpieces through unique and boundary-pushing prompts.
                   </p>
                 </div>
               </div>
@@ -409,13 +421,16 @@ export default function Home() {
             >
               <div className="project-bg">
                 <img src={item.bg} alt="" />
+
+                <div className="hero-img-overlay"></div>
+                <div className="hero-img-gradient"></div>
               </div>
               <div className="project-main">
                 <img src={item.main} alt="" />
               </div>
               <div className="project-header">
                 <div className="project-id">
-                  <h2>Exhibit {item.id}</h2>
+                  <h2>Archive {item.id}</h2>
                 </div>
                 <div className="project-whitespace"></div>
                 <div className="project-title">
@@ -424,7 +439,7 @@ export default function Home() {
               </div>
               <div className="project-info">
                 <div className="project-url">
-                  <Link href={item.url}>( View Project )</Link>
+                  <Link href={item.url}>( The Journey )</Link>
                 </div>
               </div>
               <Link
@@ -443,22 +458,22 @@ export default function Home() {
             <div className="footer-row footer-content">
               <div className="footer-col">
                 <h3>
-                  A short exploration on generative AI Art by Codegrid © 2025 —
-                  All rights reserved.
+                  A brief journey into AI-driven artistry by Algora © 2025 — All
+                  rights reserved.
                 </h3>
               </div>
               <div className="footer-col">
                 <div className="footer-sub-col">
                   <p className="footer-col-header">[ * Navigation ]</p>
-                  <p>Introduction</p>
-                  <p>Case Studies</p>
-                  <p>Experiments</p>
+                  <p>The Origins</p>
+                  <p>Highlights</p>
+                  <p>Innovations</p>
                 </div>
                 <div className="footer-sub-col">
-                  <p className="footer-col-header">[ * Exhibit ]</p>
-                  <p>Exhibit 001</p>
-                  <p>Exhibit 002</p>
-                  <p>Exhibit 003</p>
+                  <p className="footer-col-header">[ * Archive ]</p>
+                  <p>Archive 101</p>
+                  <p>Archive 102</p>
+                  <p>Archive 103</p>
                 </div>
               </div>
             </div>
