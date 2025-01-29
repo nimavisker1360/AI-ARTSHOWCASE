@@ -9,26 +9,44 @@ const Marquee = () => {
   const wrapperRef = useRef(null);
   const animationRef = useRef(null);
   const directionRef = useRef(-1);
+
   useEffect(() => {
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
 
-    const originalText = wrapper.children[0].cloneNode(true);
-    wrapper.appendChild(originalText);
+    const content = wrapper.children[0];
 
-    const distance = wrapper.children[0].offsetWidth;
+    for (let i = 0; i < 3; i++) {
+      const clone = content.cloneNode(true);
+      wrapper.appendChild(clone);
+    }
+
+    const singleWidth = content.offsetWidth;
+    const totalWidth = singleWidth * 2;
 
     const createAnimation = () => {
       if (animationRef.current) {
         animationRef.current.kill();
       }
 
-      const currentX = gsap.getProperty(wrapper, "x");
+      let currentX = gsap.getProperty(wrapper, "x");
 
-      const targetX = directionRef.current === -1 ? -distance : 0;
+      if (currentX <= -totalWidth) {
+        currentX = currentX % singleWidth;
+        gsap.set(wrapper, { x: currentX });
+      } else if (currentX >= 0) {
+        currentX = -singleWidth + (currentX % singleWidth);
+        gsap.set(wrapper, { x: currentX });
+      }
+
+      const targetX =
+        directionRef.current === -1
+          ? currentX - singleWidth
+          : currentX + singleWidth;
+
       const remainingDistance = Math.abs(targetX - currentX);
       const remainingDuration =
-        (remainingDistance / distance) * ANIMATION_DURATION;
+        (remainingDistance / singleWidth) * ANIMATION_DURATION;
 
       animationRef.current = gsap.to(wrapper, {
         x: targetX,
@@ -36,7 +54,15 @@ const Marquee = () => {
         ease: "none",
         repeat: -1,
         onRepeat: () => {
-          gsap.set(wrapper, { x: directionRef.current === -1 ? 0 : -distance });
+          let resetX = gsap.getProperty(wrapper, "x");
+
+          if (directionRef.current === -1 && resetX <= -totalWidth) {
+            resetX = resetX % singleWidth;
+          } else if (directionRef.current === 1 && resetX >= 0) {
+            resetX = -singleWidth + (resetX % singleWidth);
+          }
+
+          gsap.set(wrapper, { x: resetX });
         },
       });
     };
@@ -71,8 +97,8 @@ const Marquee = () => {
       <div className="marquee-wrapper" ref={wrapperRef}>
         <div className="marquee-content">
           <h1>
-            The Evolution of AI — The Evolution of AI — The Evolution of AI —
-            The Evolution of AI —
+            Current State of AI — Current State of AI — Current State of AI —
+            Current State of AI —
           </h1>
         </div>
       </div>
