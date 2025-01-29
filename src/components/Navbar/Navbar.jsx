@@ -1,10 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import "./Navbar.css";
 import Link from "next/link";
 
 const Navbar = () => {
   const [time, setTime] = useState("");
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
     const updateTime = () => {
@@ -23,20 +27,23 @@ const Navbar = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const scrollToSection = (event, sectionId) => {
+  const handleNavigation = (event, sectionId) => {
     event.preventDefault();
 
-    const lenis = window.lenis;
-
-    if (lenis) {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        lenis.scrollTo(element, {
-          offset: 0,
-          immediate: false,
-          duration: 1.5,
-        });
+    if (isHomePage) {
+      const lenis = window.lenis;
+      if (lenis) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          lenis.scrollTo(element, {
+            offset: 0,
+            immediate: false,
+            duration: 1.5,
+          });
+        }
       }
+    } else {
+      router.push(`/#${sectionId}`);
     }
   };
 
@@ -54,16 +61,16 @@ const Navbar = () => {
       </div>
       <div className="navbar-col">
         <div className="navbar-sub-col nav-items">
-          <a href="#intro" onClick={(e) => scrollToSection(e, "intro")}>
+          <a href="#intro" onClick={(e) => handleNavigation(e, "intro")}>
             <p>The Origins</p>
           </a>
           <a
             href="#case-studies"
-            onClick={(e) => scrollToSection(e, "case-studies")}
+            onClick={(e) => handleNavigation(e, "case-studies")}
           >
             <p>Highlights</p>
           </a>
-          <a href="#works" onClick={(e) => scrollToSection(e, "works")}>
+          <a href="#works" onClick={(e) => handleNavigation(e, "works")}>
             <p>Innovations</p>
           </a>
         </div>
