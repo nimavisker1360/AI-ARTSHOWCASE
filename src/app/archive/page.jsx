@@ -1,15 +1,18 @@
 "use client";
+
 import { useEffect } from "react";
-import "./archive.css";
-import { ReactLenis } from "@studio-freight/react-lenis";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { ReactLenis } from "@studio-freight/react-lenis";
 import Marquee from "@/components/Marquee/Marquee";
 import Footer from "@/components/Footer/Footer";
+
+import "./archive.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const ArchivePage = () => {
+  // controls pinning of the source section
   useEffect(() => {
     let pinAnimation;
 
@@ -47,6 +50,7 @@ const ArchivePage = () => {
     };
   }, []);
 
+  // controls footer fade animation on scroll
   useEffect(() => {
     gsap.set("footer", { opacity: 0 });
 
@@ -75,7 +79,6 @@ const ArchivePage = () => {
         <section className="archive-hero">
           <div className="container">
             <h1>Archive 101: Starlight Reverie Celestial</h1>
-
             <div className="archive-hero-img-wrapper">
               <div className="archive-hero-img-wrapper-row">
                 <p>+</p>
@@ -116,10 +119,8 @@ const ArchivePage = () => {
                   bathed in moody lighting, gazing into the distance with an air
                   of mystery.
                 </p>
-
                 <p className="secondary">[ AI Character ]</p>
                 <h4>Midjourney</h4>
-
                 <div className="gallery-images-container">
                   <div className="gallery-row main-img">
                     <img src="/images/home/prompt-eg-2.jpeg" alt="" />

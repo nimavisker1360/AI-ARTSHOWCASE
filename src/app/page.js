@@ -1,42 +1,22 @@
 "use client";
+
 import { useEffect } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
+import { MdArrowOutward } from "react-icons/md";
 import Marquee from "@/components/Marquee/Marquee";
 import Footer from "@/components/Footer/Footer";
+import GeometricBackground from "@/components/GeometricBackground/GeometricBackground";
+import { carouselItems } from "./carouselItems";
 
 import "./home.css";
-import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
+
 gsap.registerPlugin(ScrollTrigger);
 
-import { MdArrowOutward } from "react-icons/md";
-
 export default function Home() {
-  const carouselItems = [
-    {
-      id: "101",
-      title: "Starlight Reverie Celestial",
-      bg: "/images/carousel/carousel1.jpeg",
-      main: "/images/carousel/carousel1.jpeg",
-      url: "/archive",
-    },
-    {
-      id: "102",
-      title: "The Infinite Eternity Flow",
-      bg: "/images/carousel/carousel2.jpeg",
-      main: "/images/carousel/carousel2.jpeg",
-      url: "/archive",
-    },
-    {
-      id: "103",
-      title: "Aurora's Horizon Colors",
-      bg: "/images/carousel/carousel3.jpeg",
-      main: "/images/carousel/carousel3.jpeg",
-      url: "/archive",
-    },
-  ];
-
+  // initialize Lenis smooth scrolling instance on window
   const lenis = useLenis();
   useEffect(() => {
     if (lenis) {
@@ -48,28 +28,73 @@ export default function Home() {
     };
   }, [lenis]);
 
+  // controls geometric background animation on scroll
   useEffect(() => {
-    gsap.set("footer", { opacity: 0 });
+    ScrollTrigger.create({
+      trigger: ".intro",
+      start: "top bottom",
+      end: "bottom top",
+      scrub: 1,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        const yMove = -750 * progress;
+        const rotation = 360 * progress;
 
-    const footerTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".carousel",
-        start: "top center",
-        end: "bottom center",
-        scrub: true,
-        toggleActions: "play none none reverse",
-        invalidateOnRefresh: true,
+        gsap.to(".geo-bg", {
+          y: yMove,
+          rotation: rotation,
+          duration: 0.1,
+          ease: "none",
+          overwrite: true,
+        });
       },
     });
 
-    footerTl.fromTo("footer", { opacity: 0 }, { opacity: 1, duration: 1 });
-
     return () => {
-      const triggers = ScrollTrigger.getAll();
-      triggers.forEach((trigger) => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
+  // handles case studies image pinning and scale animations on scroll
+  useEffect(() => {
+    const images = gsap.utils.toArray(".case-studies-img");
+
+    images.forEach((img, i) => {
+      const imgElement = img.querySelector("img");
+
+      ScrollTrigger.create({
+        trigger: img,
+        start: "top bottom",
+        end: "top top",
+        onUpdate: (self) => {
+          gsap.to(imgElement, {
+            scale: 2 - self.progress,
+            duration: 0.1,
+            ease: "none",
+          });
+        },
+      });
+
+      ScrollTrigger.create({
+        trigger: img,
+        start: "top top",
+        end: () =>
+          `+=${
+            document.querySelector(".case-studies-item").offsetHeight *
+            (images.length - i - 1)
+          }`,
+        pin: true,
+        pinSpacing: false,
+        invalidateOnRefresh: true,
+      });
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
+  // handles carousel slide transitions with clip-path animations
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -127,67 +152,26 @@ export default function Home() {
     };
   }, []);
 
+  // controls footer fade animation on scroll
   useEffect(() => {
-    ScrollTrigger.create({
-      trigger: ".intro",
-      start: "top bottom",
-      end: "bottom top",
-      scrub: 1,
-      onUpdate: (self) => {
-        const progress = self.progress;
-        const yMove = -750 * progress;
-        const rotation = 360 * progress;
+    gsap.set("footer", { opacity: 0 });
 
-        gsap.to(".geo-bg", {
-          y: yMove,
-          rotation: rotation,
-          duration: 0.1,
-          ease: "none",
-          overwrite: true,
-        });
+    const footerTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".carousel",
+        start: "top center",
+        end: "bottom center",
+        scrub: true,
+        toggleActions: "play none none reverse",
+        invalidateOnRefresh: true,
       },
     });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
-
-  useEffect(() => {
-    const images = gsap.utils.toArray(".case-studies-img");
-
-    images.forEach((img, i) => {
-      const imgElement = img.querySelector("img");
-
-      ScrollTrigger.create({
-        trigger: img,
-        start: "top bottom",
-        end: "top top",
-        onUpdate: (self) => {
-          gsap.to(imgElement, {
-            scale: 2 - self.progress,
-            duration: 0.1,
-            ease: "none",
-          });
-        },
-      });
-
-      ScrollTrigger.create({
-        trigger: img,
-        start: "top top",
-        end: () =>
-          `+=${
-            document.querySelector(".case-studies-item").offsetHeight *
-            (images.length - i - 1)
-          }`,
-        pin: true,
-        pinSpacing: false,
-        invalidateOnRefresh: true,
-      });
-    });
+    footerTl.fromTo("footer", { opacity: 0 }, { opacity: 1, duration: 1 });
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      const triggers = ScrollTrigger.getAll();
+      triggers.forEach((trigger) => trigger.kill());
     };
   }, []);
 
@@ -211,7 +195,6 @@ export default function Home() {
           </div>
           <div className="hero-img-overlay"></div>
           <div className="hero-img-gradient"></div>
-
           <div className="container">
             <div className="hero-copy">
               <div className="hero-copy-col">
@@ -229,44 +212,7 @@ export default function Home() {
 
         <section className="intro" id="intro">
           <div className="geo-bg">
-            <svg
-              width="201"
-              height="200"
-              viewBox="0 0 201 200"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g clipPath="url(#clip0_1_1034)">
-                <mask
-                  id="mask0_1_1034"
-                  maskUnits="userSpaceOnUse"
-                  x="0"
-                  y="0"
-                  width="201"
-                  height="200"
-                >
-                  <path d="M200.5 0H0.5V200H200.5V0Z" fill="white" />
-                </mask>
-                <g mask="url(#mask0_1_1034)">
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M189.441 100C193.269 100 196.977 99.4861 200.5 98.5234C197.699 97.9327 194.795 97.622 191.819 97.622H142.355C134.185 97.622 126.561 95.2811 120.119 91.2334C121.527 82.9896 125.413 75.0866 131.777 68.7229L163.391 37.1094C166.098 34.4024 168.356 31.4169 170.167 28.2452C167.768 29.8079 165.495 31.6416 163.391 33.7463L128.414 68.7229C122.637 74.4999 115.591 78.2351 108.174 79.9285C103.34 73.1033 100.5 64.7671 100.5 55.7675V11.0593C100.5 7.23107 99.9861 3.5229 99.0234 0C98.4327 2.80071 98.122 5.70466 98.122 8.68118V58.1456C98.122 66.3155 95.7811 73.9388 91.7335 80.3812C83.4897 78.9727 75.5866 75.0865 69.2229 68.7228L37.6094 37.1094C34.9024 34.4024 31.9169 32.1437 28.7452 30.3334C30.3079 32.7315 32.1416 35.0047 34.2463 37.1094L69.2229 72.086C74.9999 77.8631 78.7352 84.9088 80.4285 92.3263C73.6033 97.1596 65.2671 100 56.2675 100H11.5593C7.73105 100 4.02289 100.514 0.5 101.477C3.30073 102.067 6.20469 102.378 9.18122 102.378H58.6456C66.8156 102.378 74.4388 104.719 80.8812 108.767C79.4727 117.01 75.5866 124.913 69.2229 131.277L37.6094 162.891C34.9025 165.598 32.6438 168.583 30.8335 171.755C33.2316 170.192 35.5047 168.358 37.6094 166.254L72.586 131.277C78.363 125.5 85.4088 121.765 92.8263 120.071C97.6596 126.897 100.5 135.233 100.5 144.233V188.941C100.5 192.769 101.014 196.477 101.977 200C102.567 197.199 102.878 194.295 102.878 191.319V141.854C102.878 133.684 105.219 126.061 109.267 119.619C117.51 121.027 125.413 124.913 131.777 131.277L163.391 162.891C166.098 165.598 169.083 167.856 172.255 169.667C170.692 167.268 168.858 164.995 166.754 162.891L131.777 127.914C126 122.137 122.265 115.091 120.572 107.674C127.397 102.84 135.733 100 144.733 100H189.441Z"
-                    fill="#30726E"
-                  />
-                </g>
-              </g>
-              <defs>
-                <clipPath id="clip0_1_1034">
-                  <rect
-                    width="200"
-                    height="200"
-                    fill="white"
-                    transform="translate(0.5)"
-                  />
-                </clipPath>
-              </defs>
-            </svg>
+            <GeometricBackground />
           </div>
           <Marquee />
           <div className="intro-container">
@@ -282,7 +228,6 @@ export default function Home() {
                     hyper-realistic, high-definition visuals that push the
                     boundaries of imagination and innovation.
                   </p>
-
                   <p>
                     This progress has opened the doors to powerful visual
                     creation tools for users of all skill levels, from seasoned
@@ -293,7 +238,6 @@ export default function Home() {
                     surrounding the essence of true artistic expression.
                   </p>
                 </div>
-
                 <div className="prompt-example">
                   <div className="prompt-example-header">
                     <h4>
@@ -301,7 +245,6 @@ export default function Home() {
                       futuristic attire
                     </h4>
                   </div>
-
                   <div className="prompt-example-results">
                     <div className="prompt-example-result-item">
                       <div className="prompt-example-result-item-img">
@@ -334,7 +277,6 @@ export default function Home() {
               <h2>Dive Into New Success Stories</h2>
             </div>
           </div>
-
           <div className="case-studies-content">
             <div className="container">
               <div className="col">
@@ -343,7 +285,6 @@ export default function Home() {
               <div className="col">
                 <div className="case-studies-copy">
                   <h2>How is AI Reshaping Artistic Boundaries?</h2>
-
                   <p>
                     Generative AI has rapidly advanced, moving beyond its humble
                     beginnings of basic visual outputs to now creating stunning,
@@ -503,7 +444,6 @@ export default function Home() {
               <div className="col">
                 <div className="works-copy">
                   <h2>Can machines innovate Like Human Artists?</h2>
-
                   <p>
                     These experiments explore the potential of advanced AI
                     tools, such as Midjourney and DALL-E 3, to reimagine classic

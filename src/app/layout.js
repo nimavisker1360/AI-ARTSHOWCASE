@@ -1,11 +1,12 @@
 import { Suspense } from "react";
-import "./globals.css";
-import Navbar from "@/components/Navbar/Navbar";
 import ProgressBar from "@/components/ProgressBar/ProgressBar";
+import Navbar from "@/components/Navbar/Navbar";
+
+import "./globals.css";
 
 export const metadata = {
   title: "ALGORA — Your AI art portal",
-  description: "Your AI art portal",
+  description: "CGMWT JAN 2025 by Codegrid",
 };
 
 export default function RootLayout({ children }) {
