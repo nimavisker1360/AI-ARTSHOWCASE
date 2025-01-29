@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+
 import "./Footer.css";
 
 const Footer = () => {
@@ -19,9 +21,15 @@ const Footer = () => {
               <div className="footer-sub-col"></div>
               <div className="footer-sub-col footer-links">
                 <p className="footer-col-header">[ * Archive ]</p>
-                <p>Archive 101</p>
-                <p>Archive 102</p>
-                <p>Archive 103</p>
+                <Link href="/archive">
+                  <p>Archive 101</p>
+                </Link>
+                <Link href="/archive">
+                  <p>Archive 102</p>
+                </Link>
+                <Link href="/archive">
+                  <p>Archive 103</p>
+                </Link>
               </div>
             </div>
           </div>
