@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import ProgressBar from "@/components/ProgressBar/ProgressBar";
@@ -11,7 +12,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <ProgressBar />
+        <Suspense>
+          <ProgressBar />
+        </Suspense>
         <Navbar />
         {children}
       </body>
