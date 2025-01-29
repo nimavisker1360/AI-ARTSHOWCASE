@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import Marquee from "@/components/Marquee/Marquee";
@@ -9,73 +10,82 @@ import Footer from "@/components/Footer/Footer";
 
 import "./archive.css";
 
+gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
 
 const ArchivePage = () => {
+  const container = useRef();
+
   // controls pinning of the source section
-  useEffect(() => {
-    let pinAnimation;
+  useGSAP(
+    () => {
+      let pinAnimation;
 
-    const initPinning = () => {
-      if (pinAnimation) {
-        pinAnimation.kill();
-      }
+      const initPinning = () => {
+        if (pinAnimation) {
+          pinAnimation.kill();
+        }
 
-      if (window.innerWidth > 900) {
-        pinAnimation = ScrollTrigger.create({
-          trigger: ".sticky-archive",
-          start: "top top",
-          endTrigger: ".gallery",
-          end: "bottom bottom",
-          pin: ".source",
-          pinSpacing: false,
-          invalidateOnRefresh: true,
-        });
-      }
-    };
+        if (window.innerWidth > 900) {
+          pinAnimation = ScrollTrigger.create({
+            trigger: ".sticky-archive",
+            start: "top top",
+            endTrigger: ".gallery",
+            end: "bottom bottom",
+            pin: ".source",
+            pinSpacing: false,
+            invalidateOnRefresh: true,
+          });
+        }
+      };
 
-    initPinning();
-
-    const handleResize = () => {
       initPinning();
-    };
 
-    window.addEventListener("resize", handleResize);
+      const handleResize = () => {
+        initPinning();
+      };
 
-    return () => {
-      if (pinAnimation) {
-        pinAnimation.kill();
-      }
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        if (pinAnimation) {
+          pinAnimation.kill();
+        }
+        window.removeEventListener("resize", handleResize);
+      };
+    },
+    { scope: container }
+  );
 
   // controls footer fade animation on scroll
-  useEffect(() => {
-    gsap.set("footer", { opacity: 0 });
+  useGSAP(
+    () => {
+      gsap.set("footer", { opacity: 0 });
 
-    const footerTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".sticky-archive",
-        start: "top center",
-        end: "bottom center",
-        scrub: true,
-        toggleActions: "play none none reverse",
-        invalidateOnRefresh: true,
-      },
-    });
+      const footerTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".sticky-archive",
+          start: "top center",
+          end: "bottom center",
+          scrub: true,
+          toggleActions: "play none none reverse",
+          invalidateOnRefresh: true,
+        },
+      });
 
-    footerTl.fromTo("footer", { opacity: 0 }, { opacity: 1, duration: 1 });
+      footerTl.fromTo("footer", { opacity: 0 }, { opacity: 1, duration: 1 });
 
-    return () => {
-      const triggers = ScrollTrigger.getAll();
-      triggers.forEach((trigger) => trigger.kill());
-    };
-  }, []);
+      return () => {
+        const triggers = ScrollTrigger.getAll();
+        triggers.forEach((trigger) => trigger.kill());
+      };
+    },
+    { scope: container }
+  );
 
   return (
     <ReactLenis root>
-      <div className="archive">
+      <div className="archive" ref={container}>
         <section className="archive-hero">
           <div className="container">
             <h1>Archive 101: Starlight Reverie Celestial</h1>

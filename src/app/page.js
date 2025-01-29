@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 import { MdArrowOutward } from "react-icons/md";
@@ -13,9 +14,12 @@ import { carouselItems } from "./carouselItems";
 
 import "./home.css";
 
+gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
+  const container = useRef();
+
   // initialize Lenis smooth scrolling instance on window
   const lenis = useLenis();
   useEffect(() => {
@@ -29,151 +33,163 @@ export default function Home() {
   }, [lenis]);
 
   // controls geometric background animation on scroll
-  useEffect(() => {
-    ScrollTrigger.create({
-      trigger: ".intro",
-      start: "top bottom",
-      end: "bottom top",
-      scrub: 1,
-      onUpdate: (self) => {
-        const progress = self.progress;
-        const yMove = -750 * progress;
-        const rotation = 360 * progress;
-
-        gsap.to(".geo-bg", {
-          y: yMove,
-          rotation: rotation,
-          duration: 0.1,
-          ease: "none",
-          overwrite: true,
-        });
-      },
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
-
-  // handles case studies image pinning and scale animations on scroll
-  useEffect(() => {
-    const images = gsap.utils.toArray(".case-studies-img");
-
-    images.forEach((img, i) => {
-      const imgElement = img.querySelector("img");
-
+  useGSAP(
+    () => {
       ScrollTrigger.create({
-        trigger: img,
+        trigger: ".intro",
         start: "top bottom",
-        end: "top top",
+        end: "bottom top",
+        scrub: 1,
         onUpdate: (self) => {
-          gsap.to(imgElement, {
-            scale: 2 - self.progress,
+          const progress = self.progress;
+          const yMove = -750 * progress;
+          const rotation = 360 * progress;
+
+          gsap.to(".geo-bg", {
+            y: yMove,
+            rotation: rotation,
             duration: 0.1,
             ease: "none",
+            overwrite: true,
           });
         },
       });
 
-      ScrollTrigger.create({
-        trigger: img,
-        start: "top top",
-        end: () =>
-          `+=${
-            document.querySelector(".case-studies-item").offsetHeight *
-            (images.length - i - 1)
-          }`,
-        pin: true,
-        pinSpacing: false,
-        invalidateOnRefresh: true,
-      });
-    });
+      return () => {
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
+    },
+    { scope: container }
+  );
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
+  // handles case studies image pinning and scale animations on scroll
+  useGSAP(
+    () => {
+      const images = gsap.utils.toArray(".case-studies-img");
+
+      images.forEach((img, i) => {
+        const imgElement = img.querySelector("img");
+
+        ScrollTrigger.create({
+          trigger: img,
+          start: "top bottom",
+          end: "top top",
+          onUpdate: (self) => {
+            gsap.to(imgElement, {
+              scale: 2 - self.progress,
+              duration: 0.1,
+              ease: "none",
+            });
+          },
+        });
+
+        ScrollTrigger.create({
+          trigger: img,
+          start: "top top",
+          end: () =>
+            `+=${
+              document.querySelector(".case-studies-item").offsetHeight *
+              (images.length - i - 1)
+            }`,
+          pin: true,
+          pinSpacing: false,
+          invalidateOnRefresh: true,
+        });
+      });
+
+      return () => {
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
+    },
+    { scope: container }
+  );
 
   // handles carousel slide transitions with clip-path animations
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+  useGSAP(
+    () => {
+      if (typeof window === "undefined") return;
 
-    const projects = gsap.utils.toArray(".project");
+      const projects = gsap.utils.toArray(".project");
 
-    ScrollTrigger.create({
-      trigger: ".carousel",
-      start: "top top",
-      end: `+=${window.innerHeight * (projects.length - 1)}`,
-      pin: true,
-      pinSpacing: true,
-      scrub: 1,
-      invalidateOnRefresh: true,
-      onUpdate: (self) => {
-        const progress = self.progress * (projects.length - 1);
-        const currentSlide = Math.floor(progress);
-        const slideProgress = progress - currentSlide;
+      ScrollTrigger.create({
+        trigger: ".carousel",
+        start: "top top",
+        end: `+=${window.innerHeight * (projects.length - 1)}`,
+        pin: true,
+        pinSpacing: true,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const progress = self.progress * (projects.length - 1);
+          const currentSlide = Math.floor(progress);
+          const slideProgress = progress - currentSlide;
 
-        if (currentSlide < projects.length - 1) {
-          gsap.set(projects[currentSlide], {
-            clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
-          });
-
-          const nextSlideProgress = gsap.utils.interpolate(
-            "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
-            "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
-            slideProgress
-          );
-
-          gsap.set(projects[currentSlide + 1], {
-            clipPath: nextSlideProgress,
-          });
-        }
-
-        projects.forEach((project, index) => {
-          if (index < currentSlide) {
-            gsap.set(project, {
+          if (currentSlide < projects.length - 1) {
+            gsap.set(projects[currentSlide], {
               clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
             });
-          } else if (index > currentSlide + 1) {
-            gsap.set(project, {
-              clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+
+            const nextSlideProgress = gsap.utils.interpolate(
+              "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+              "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+              slideProgress
+            );
+
+            gsap.set(projects[currentSlide + 1], {
+              clipPath: nextSlideProgress,
             });
           }
-        });
-      },
-    });
 
-    gsap.set(projects[0], {
-      clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
-    });
+          projects.forEach((project, index) => {
+            if (index < currentSlide) {
+              gsap.set(project, {
+                clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+              });
+            } else if (index > currentSlide + 1) {
+              gsap.set(project, {
+                clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+              });
+            }
+          });
+        },
+      });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
+      gsap.set(projects[0], {
+        clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+      });
+
+      return () => {
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
+    },
+    { scope: container }
+  );
 
   // controls footer fade animation on scroll
-  useEffect(() => {
-    gsap.set("footer", { opacity: 0 });
+  useGSAP(
+    () => {
+      gsap.set("footer", { opacity: 0 });
 
-    const footerTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".carousel",
-        start: "top center",
-        end: "bottom center",
-        scrub: true,
-        toggleActions: "play none none reverse",
-        invalidateOnRefresh: true,
-      },
-    });
+      const footerTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".carousel",
+          start: "top center",
+          end: "bottom center",
+          scrub: true,
+          toggleActions: "play none none reverse",
+          invalidateOnRefresh: true,
+        },
+      });
 
-    footerTl.fromTo("footer", { opacity: 0 }, { opacity: 1, duration: 1 });
+      footerTl.fromTo("footer", { opacity: 0 }, { opacity: 1, duration: 1 });
 
-    return () => {
-      const triggers = ScrollTrigger.getAll();
-      triggers.forEach((trigger) => trigger.kill());
-    };
-  }, []);
+      return () => {
+        const triggers = ScrollTrigger.getAll();
+        triggers.forEach((trigger) => trigger.kill());
+      };
+    },
+    { scope: container }
+  );
 
   return (
     <ReactLenis
@@ -188,7 +204,7 @@ export default function Home() {
         touchMultiplier: 2,
       }}
     >
-      <div className="app">
+      <div className="app" ref={container}>
         <section className="hero">
           <div className="hero-img">
             <img src="/images/home/hero.jpeg" alt="" />
