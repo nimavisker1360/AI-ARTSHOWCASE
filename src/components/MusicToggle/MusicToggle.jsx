@@ -1,13 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
-import lottie from "lottie-web";
+import dynamic from "next/dynamic";
 
 const MusicToggle = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [lottie, setLottie] = useState(null);
   const audioRef = useRef(null);
   const lottieRef = useRef(null);
   const containerRef = useRef(null);
 
   useEffect(() => {
+    import("lottie-web").then((lottieModule) => {
+      setLottie(lottieModule.default);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!lottie || !containerRef.current) return;
+
     const animation = lottie.loadAnimation({
       container: containerRef.current,
       renderer: "svg",
@@ -18,7 +27,9 @@ const MusicToggle = () => {
 
     lottieRef.current = animation;
 
-    audioRef.current = new Audio("/demoted.mp3");
+    if (typeof window !== "undefined") {
+      audioRef.current = new Audio("/demoted.mp3");
+    }
 
     return () => {
       animation.destroy();
@@ -27,9 +38,11 @@ const MusicToggle = () => {
         audioRef.current = null;
       }
     };
-  }, []);
+  }, [lottie]);
 
   const toggleMusic = () => {
+    if (!audioRef.current || !lottieRef.current) return;
+
     if (!isPlaying) {
       audioRef.current.play();
       lottieRef.current.playSegments([0, 120], true);
@@ -54,4 +67,6 @@ const MusicToggle = () => {
   );
 };
 
-export default MusicToggle;
+export default dynamic(() => Promise.resolve(MusicToggle), {
+  ssr: false,
+});

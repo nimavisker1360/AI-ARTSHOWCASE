@@ -3,9 +3,13 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import MusicToggle from "../MusicToggle/MusicToggle";
+import dynamic from "next/dynamic";
 
 import "./Navbar.css";
+
+const MusicToggle = dynamic(() => import("../MusicToggle/MusicToggle"), {
+  ssr: false,
+});
 
 const Navbar = () => {
   const [time, setTime] = useState("");
