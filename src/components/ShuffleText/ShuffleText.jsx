@@ -1,6 +1,7 @@
+// components/ShuffleText/ShuffleText.jsx
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import SplitType from "split-type";
@@ -13,14 +14,38 @@ const ShuffleText = ({
   ...props
 }) => {
   const containerRef = useRef(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const splitInstance = useRef(null);
 
   useEffect(() => {
-    const split = new SplitType(containerRef.current, {
+    const checkSize = () => {
+      setIsDesktop(window.innerWidth > 900);
+    };
+
+    checkSize();
+
+    window.addEventListener("resize", checkSize);
+
+    return () => window.removeEventListener("resize", checkSize);
+  }, []);
+
+  useEffect(() => {
+    if (!isDesktop) {
+      // show the text without animation on mobile
+      if (splitInstance.current) {
+        splitInstance.current.revert();
+        splitInstance.current = null;
+      }
+      gsap.set(containerRef.current, { opacity: 1 });
+      return;
+    }
+
+    splitInstance.current = new SplitType(containerRef.current, {
       types: "lines,words,chars",
       tagName: "span",
     });
 
-    const chars = split.chars;
+    const chars = splitInstance.current.chars;
     const signs = ["+", "-"];
 
     gsap.set(chars, { opacity: 0 });
@@ -66,10 +91,12 @@ const ShuffleText = ({
     }
 
     return () => {
-      split.revert();
+      if (splitInstance.current) {
+        splitInstance.current.revert();
+      }
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, [text, triggerOnScroll]);
+  }, [text, triggerOnScroll, isDesktop]);
 
   return (
     <Component
