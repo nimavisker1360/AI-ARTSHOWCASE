@@ -127,9 +127,9 @@ h1 {
   text-transform: uppercase;
   font-family: "Nippo";
   font-weight: 400;
-  font-size: 8rem;
+  font-size: 7rem;
   line-height: 90%;
-  letter-spacing: -0.5rem;
+  letter-spacing: -0.35rem;
 }
 
 h2 {

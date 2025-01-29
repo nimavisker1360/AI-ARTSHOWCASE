@@ -7,6 +7,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import Marquee from "@/components/Marquee/Marquee";
 import Footer from "@/components/Footer/Footer";
+import ShuffleText from "@/components/ShuffleText/ShuffleText";
 
 import "./archive.css";
 
@@ -88,7 +89,10 @@ const ArchivePage = () => {
       <div className="archive" ref={container}>
         <section className="archive-hero">
           <div className="container">
-            <h1>Archive 101: Starlight Reverie Celestial</h1>
+            <ShuffleText
+              as="h1"
+              text="Archive 101: Starlight Reverie Celestial"
+            />
             <div className="archive-hero-img-wrapper">
               <div className="archive-hero-img-wrapper-row">
                 <p>+</p>

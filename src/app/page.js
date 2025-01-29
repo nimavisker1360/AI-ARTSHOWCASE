@@ -9,6 +9,7 @@ import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 import { MdArrowOutward } from "react-icons/md";
 import Marquee from "@/components/Marquee/Marquee";
 import Footer from "@/components/Footer/Footer";
+import ShuffleText from "@/components/ShuffleText/ShuffleText";
 import GeometricBackground from "@/components/GeometricBackground/GeometricBackground";
 import { carouselItems } from "./carouselItems";
 
@@ -214,8 +215,8 @@ export default function Home() {
           <div className="container">
             <div className="hero-copy">
               <div className="hero-copy-col">
-                <h3>A brief journey into</h3>
-                <h1>The Fusion of Art and Algorithms</h1>
+                <ShuffleText as="h3" text="A brief journey into" />
+                <ShuffleText as="h1" text="The Fusion of Art and Algorithms" />
               </div>
               <div className="hero-copy-col">
                 <div className="hero-icon">
@@ -290,7 +291,11 @@ export default function Home() {
         <section className="case-studies" id="case-studies">
           <div className="case-studies-header">
             <div className="container">
-              <h2>Dive Into New Success Stories</h2>
+              <ShuffleText
+                as="h2"
+                text="Dive Into New Success Stories"
+                triggerOnScroll={true}
+              />
             </div>
           </div>
           <div className="case-studies-content">
@@ -448,7 +453,11 @@ export default function Home() {
         <section className="works" id="works">
           <div className="works-header">
             <div className="container">
-              <h2>Timeless Art Through a New Lens</h2>
+              <ShuffleText
+                as="h2"
+                text="Timeless Art Through a New Lens"
+                triggerOnScroll={true}
+              />
             </div>
           </div>
 
