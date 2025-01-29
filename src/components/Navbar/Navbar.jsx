@@ -1,8 +1,11 @@
 "use client";
+
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import MusicToggle from "../MusicToggle/MusicToggle";
+
 import "./Navbar.css";
-import Link from "next/link";
 
 const Navbar = () => {
   const [time, setTime] = useState("");
@@ -74,10 +77,8 @@ const Navbar = () => {
             <p>Innovations</p>
           </a>
         </div>
-        <div className="navbar-sub-col music-toggle">
-          <div className="music-toggle-btn">
-            <p>on</p>
-          </div>
+        <div className="navbar-sub-col music-toggle-wrapper">
+          <MusicToggle />
         </div>
       </div>
     </div>
