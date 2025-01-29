@@ -96,6 +96,7 @@
 
 /* intro section */
 .intro {
+  position: relative;
   background-color: var(--background);
   clip-path: polygon(
     5% 0,
@@ -107,6 +108,18 @@
     0 100%,
     0 5%
   );
+  overflow-x: hidden;
+}
+
+.geo-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(2.5);
+  z-index: -1;
+  transform-origin: center center;
+  opacity: 0.25;
+  will-change: transform;
 }
 
 .intro .intro-container {
@@ -234,7 +247,6 @@
   font-weight: 400;
   font-size: 4rem;
   margin-bottom: 0.5em;
-  letter-spacing: -0.1rem;
 }
 
 .case-studies-items-content .container p.primary {
@@ -410,6 +422,7 @@ footer {
   z-index: -1;
   background-color: var(--background);
   color: var(--foreground);
+  opacity: 0;
 }
 
 footer .container {
@@ -478,6 +491,20 @@ footer h3 {
 
 .footer-sub-col {
   flex: 1;
+}
+
+.case-studies h2,
+.works h2 {
+  letter-spacing: -0.25rem;
+}
+
+.project-id h2,
+.project-title h2 {
+  letter-spacing: -0.15rem;
+}
+
+.case-studies-items-content .container h3 {
+  letter-spacing: -0.1rem;
 }
 
 @media (max-width: 900px) {
@@ -549,10 +576,11 @@ footer h3 {
 
   .case-studies-content .container,
   .works-content .container {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 
-  .case-studies-content .container .col h2 {
+  .case-studies-content .container .col h2,
+  .works-content .container .col h2 {
     font-size: 2.5rem;
   }
 
@@ -566,11 +594,15 @@ footer h3 {
   }
 
   .case-studies-item-inner-img {
-    display: inline-block;
+    display: block;
     border-radius: 1em;
     overflow: hidden;
     height: 300px;
     margin-bottom: 1em;
+  }
+
+  .case-studies-item {
+    height: max-content;
   }
 
   .case-studies-item-inner-link {
@@ -598,6 +630,10 @@ footer h3 {
     flex-direction: column;
   }
 
+  .project-header h2 {
+    font-size: 3rem;
+  }
+
   .project-url {
     top: 35%;
   }
@@ -609,10 +645,20 @@ footer h3 {
   .footer-col h3 {
     width: 100%;
     margin-bottom: 1em;
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
   footer h1 {
     font-size: 25vw;
+  }
+
+  .case-studies h2,
+  .works h2 {
+    letter-spacing: -0.1rem;
+  }
+
+  .project-id h2,
+  .project-title h2 {
+    letter-spacing: -0.1rem;
   }
 }
