@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import "./marquee.css";
+import "./Marquee.css";
 
 const ANIMATION_DURATION = 15;
 
