@@ -453,6 +453,17 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="abstract-bg">
+          <div className="strip"></div>
+          <div className="strip"></div>
+          <div className="strip"></div>
+          <div className="strip"></div>
+          <div className="strip"></div>
+          <div className="strip"></div>
+          <div className="strip"></div>
+          <div className="strip"></div>
+        </section>
+
         <section className="works">
           <div className="works-header">
             <div className="container">
