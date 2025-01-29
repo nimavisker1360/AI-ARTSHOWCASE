@@ -166,32 +166,6 @@ export default function Home() {
     { scope: container }
   );
 
-  // controls footer fade animation on scroll
-  useGSAP(
-    () => {
-      gsap.set("footer", { opacity: 0 });
-
-      const footerTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".carousel",
-          start: "top center",
-          end: "bottom center",
-          scrub: true,
-          toggleActions: "play none none reverse",
-          invalidateOnRefresh: true,
-        },
-      });
-
-      footerTl.fromTo("footer", { opacity: 0 }, { opacity: 1, duration: 1 });
-
-      return () => {
-        const triggers = ScrollTrigger.getAll();
-        triggers.forEach((trigger) => trigger.kill());
-      };
-    },
-    { scope: container }
-  );
-
   return (
     <ReactLenis
       root

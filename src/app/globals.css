@@ -192,6 +192,11 @@ a {
   padding: 4em;
 }
 
+section {
+  position: relative;
+  z-index: 1;
+}
+
 @media (max-width: 900px) {
   h1 {
     font-size: 4rem;
