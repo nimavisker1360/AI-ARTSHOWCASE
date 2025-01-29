@@ -204,7 +204,6 @@ export default function Home() {
       }}
     >
       <div className="app">
-        <ProgressBar />
         <section className="hero">
           <div className="hero-img">
             <img src="/images/home/hero.jpeg" alt="" />
