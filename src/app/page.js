@@ -9,7 +9,7 @@ import "./home.css";
 import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 gsap.registerPlugin(ScrollTrigger);
 
-import { CgArrowLongRight } from "react-icons/cg";
+import { MdArrowOutward } from "react-icons/md";
 
 export default function Home() {
   const carouselItems = [
@@ -18,21 +18,21 @@ export default function Home() {
       title: "Starlight Reverie Celestial",
       bg: "/images/carousel/carousel1.jpeg",
       main: "/images/carousel/carousel1.jpeg",
-      url: "/project",
+      url: "/archive",
     },
     {
       id: "102",
       title: "The Infinite Eternity Flow",
       bg: "/images/carousel/carousel2.jpeg",
       main: "/images/carousel/carousel2.jpeg",
-      url: "/project",
+      url: "/archive",
     },
     {
       id: "103",
       title: "Aurora's Horizon Colors",
       bg: "/images/carousel/carousel3.jpeg",
       main: "/images/carousel/carousel3.jpeg",
-      url: "/project",
+      url: "/archive",
     },
   ];
 
@@ -377,7 +377,7 @@ export default function Home() {
                 <div className="case-studies-item-inner-link">
                   <a href="#">Discover the Journey</a>
                   <div className="link-icon">
-                    <CgArrowLongRight size={24} />
+                    <MdArrowOutward size={24} />
                   </div>
                 </div>
               </div>
@@ -403,7 +403,7 @@ export default function Home() {
                 <div className="case-studies-item-inner-link">
                   <a href="#">Read Full Story</a>
                   <div className="link-icon">
-                    <CgArrowLongRight size={24} />
+                    <MdArrowOutward size={24} />
                   </div>
                 </div>
               </div>
@@ -430,7 +430,7 @@ export default function Home() {
                 <div className="case-studies-item-inner-link">
                   <a href="#">Explore the Exhibit</a>
                   <div className="link-icon">
-                    <CgArrowLongRight size={24} />
+                    <MdArrowOutward size={24} />
                   </div>
                 </div>
               </div>
@@ -441,27 +441,36 @@ export default function Home() {
               <img src="/images/home/case-study-1.jpeg" alt="" />
               <div className="hero-img-overlay"></div>
               <div className="case-studies-img-link">
-                <a href="#">
-                  <span>( View Article )</span>
-                </a>
+                <Link href="/archive">
+                  <span>
+                    (&nbsp; View Article <MdArrowOutward />
+                    &nbsp;)
+                  </span>
+                </Link>
               </div>
             </div>
             <div className="case-studies-img case-studies-img-2">
               <img src="/images/home/case-study-2.jpeg" alt="" />
               <div className="hero-img-overlay"></div>
               <div className="case-studies-img-link">
-                <a href="#">
-                  <span>( View Article )</span>
-                </a>
+                <Link href="/archive">
+                  <span>
+                    (&nbsp; View Article <MdArrowOutward />
+                    &nbsp;)
+                  </span>
+                </Link>
               </div>
             </div>
             <div className="case-studies-img case-studies-img-3">
               <img src="/images/home/case-study-3.jpeg" alt="" />
               <div className="hero-img-overlay"></div>
               <div className="case-studies-img-link">
-                <a href="#">
-                  <span>( View Article )</span>
-                </a>
+                <Link href="/archive">
+                  <span>
+                    (&nbsp; View Article <MdArrowOutward />
+                    &nbsp;)
+                  </span>
+                </Link>
               </div>
             </div>
           </div>

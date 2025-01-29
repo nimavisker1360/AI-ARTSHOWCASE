@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import "./Navbar.css";
+import Link from "next/link";
 
 const Navbar = () => {
   const [time, setTime] = useState("");
@@ -43,9 +44,9 @@ const Navbar = () => {
     <div className="navbar">
       <div className="navbar-col">
         <div className="navbar-sub-col logo">
-          <a href="#hero" onClick={(e) => scrollToSection(e, "hero")}>
+          <Link href="/">
             <h3>Algora</h3>
-          </a>
+          </Link>
         </div>
         <div className="navbar-sub-col time">
           <p>{time}</p>

@@ -1,0 +1,10 @@
+.archive-hero {
+  position: relative;
+  width: 100vw;
+  height: 150svh;
+  background-color: var(--background);
+  color: var(--foreground);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
