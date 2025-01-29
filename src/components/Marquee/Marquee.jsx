@@ -97,8 +97,8 @@ const Marquee = () => {
       <div className="marquee-wrapper" ref={wrapperRef}>
         <div className="marquee-content">
           <h1>
-            Current State of AI — Current State of AI — Current State of AI —
-            Current State of AI —
+            The Evolution of AI — The Evolution of AI — The Evolution of AI —
+            The Evolution of AI —
           </h1>
         </div>
       </div>
