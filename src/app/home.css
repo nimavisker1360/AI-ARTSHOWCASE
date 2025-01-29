@@ -113,7 +113,7 @@
 
 .geo-bg {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%) scale(2.5);
   z-index: -1;
@@ -178,6 +178,8 @@
 
 /* case studies */
 .case-studies {
+  position: relative;
+  margin-top: -0.125em;
   width: 100%;
   height: 100%;
   background-color: var(--background);
@@ -209,10 +211,12 @@
 
 /* case studies items */
 .case-studies-items {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
   background-color: var(--background);
+  margin-top: -0.125em;
 }
 
 .case-studies-items .col {
@@ -513,7 +517,13 @@ footer p {
 p.footer-col-header {
   color: var(--foreground);
   text-transform: uppercase;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.25em;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 footer h3 {

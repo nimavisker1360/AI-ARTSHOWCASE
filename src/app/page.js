@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import ProgressBar from "@/components/ProgressBar/ProgressBar";
+import Marquee from "@/components/Marquee/Marquee";
 
 import "./home.css";
 import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
@@ -267,6 +267,7 @@ export default function Home() {
               </defs>
             </svg>
           </div>
+          <Marquee />
           <div className="intro-container">
             <div className="container">
               <div className="col">
@@ -562,12 +563,12 @@ export default function Home() {
               </div>
               <div className="footer-col">
                 <div className="footer-sub-col">
-                  <p className="footer-col-header">[ * Navigation ]</p>
+                  {/* <p className="footer-col-header">[ * Navigation ]</p>
                   <p>The Origins</p>
                   <p>Highlights</p>
-                  <p>Innovations</p>
+                  <p>Innovations</p> */}
                 </div>
-                <div className="footer-sub-col">
+                <div className="footer-sub-col footer-links">
                   <p className="footer-col-header">[ * Archive ]</p>
                   <p>Archive 101</p>
                   <p>Archive 102</p>
