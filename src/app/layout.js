@@ -6,7 +6,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "Visker — Your AI art portal",
-  description: "Nima Baghery 2025 by Codegrid",
+  description: "Nima Baghery  by Codegrid",
 };
 
 export default function RootLayout({ children }) {
