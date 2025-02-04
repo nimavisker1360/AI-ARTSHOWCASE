@@ -59,7 +59,7 @@ const Navbar = () => {
       <div className="navbar-col">
         <div className="navbar-sub-col logo">
           <Link href="/">
-            <h3>Algora</h3>
+            <h3>Visker</h3>
           </Link>
         </div>
         <div className="navbar-sub-col time">

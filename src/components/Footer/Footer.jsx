@@ -13,7 +13,7 @@ const Footer = () => {
           <div className="footer-row footer-content">
             <div className="footer-col">
               <h3>
-                A brief journey into AI-driven artistry by Algora © 2025 — All
+                A brief journey into AI-driven artistry by Visker © 2025 — All
                 rights reserved.
               </h3>
             </div>
@@ -39,7 +39,7 @@ const Footer = () => {
             <p>+</p>
           </div>
           <div className="footer-row">
-            <h1>Algora</h1>
+            <h1>VISKER</h1>
           </div>
           <div className="footer-row footer-pattern">
             <p>+</p>

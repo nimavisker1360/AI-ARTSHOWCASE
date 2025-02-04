@@ -182,7 +182,7 @@ export default function Home() {
       <div className="app" ref={container}>
         <section className="hero">
           <div className="hero-img">
-            <img src="/images/home/hero.jpeg" alt="" />
+            <img src="/images/home/hero02.jpg" alt="" />
           </div>
           <div className="hero-img-overlay"></div>
           <div className="hero-img-gradient"></div>
@@ -214,7 +214,7 @@ export default function Home() {
               <div className="col">
                 <div className="intro-copy">
                   <p>
-                    Algora has revolutionized the creative potential of AI,
+                    VISKER has revolutionized the creative potential of AI,
                     advancing from basic, low-resolution outputs to producing
                     hyper-realistic, high-definition visuals that push the
                     boundaries of imagination and innovation.
@@ -239,7 +239,7 @@ export default function Home() {
                   <div className="prompt-example-results">
                     <div className="prompt-example-result-item">
                       <div className="prompt-example-result-item-img">
-                        <img src="/images/home/prompt-1.jpeg" alt="" />
+                        <img src="/images/home/prompt2.jpg" alt="" />
                         <div className="hero-img-overlay"></div>
                       </div>
                       <div className="prompt-example-result-item-title">
@@ -252,7 +252,7 @@ export default function Home() {
                         <div className="hero-img-overlay"></div>
                       </div>
                       <div className="prompt-example-result-item-title">
-                        <h4>2024 — Created with Algora V2</h4>
+                        <h4>2024 — Created with Visker V2</h4>
                       </div>
                     </div>
                   </div>
